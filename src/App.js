@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { Movies } from './components/Movies'
+import allMovies from './mosk/result.json'
+//import searchMovies from './mosk/resultSearch.json'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className='container'>
+      <header className='headerApp'>
+        <h1>Movies</h1>
+        <form>
+          <input placeholder='Matrix...' />
+          <button>Search</button>
+        </form>
       </header>
+      <main>
+        <section>
+          <Movies allMovies={allMovies} searchMovies={[]}/>          
+        </section>
+      </main>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
