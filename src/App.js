@@ -1,11 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 
 const App = () => {
+  const [sort, setSort] = useState(null)
   const {search, setSearch, error} = useSearch()
-  const {movies, getMovies, bestAllMovies} = useMovies({search})
+  const {movies, getMovies, bestAllMovies, loading, errorMovies} = useMovies({search, sort})
 
   useEffect(() => {
     bestMovies()
@@ -13,17 +14,22 @@ const App = () => {
 
   const bestMovies =async()=>{
     const movies = await bestAllMovies()
-    console.log(movies)
+    return movies
   }
   
   const handleSubmit =(e)=>{
     e.preventDefault()
-    getMovies()
+    getMovies({search})
   }
 
   const handleChange =(e)=>{
     const newSearch = e.target.value
     setSearch(newSearch)
+    getMovies({search: newSearch})
+  }
+
+  const handleSort =()=>{
+    setSort(!sort)
   }
 
   return (
@@ -32,13 +38,17 @@ const App = () => {
         <h1>Movies</h1>
         <form onSubmit={handleSubmit}>
           <input name='query' placeholder='Matrix...' value={search} onChange={handleChange}/>
+          <input name='sort' type='checkbox' checked={sort} onChange={handleSort}/>
           <button type='submit'>Search</button>
         </form>
         {error && <p>{error}</p>}
       </header>
       <main>
         <section>
-          <Movies movies={movies}/>          
+          {
+            loading ? <p>Cargando ...</p> : <Movies movies={movies}/>  
+          }  
+          {errorMovies && <p>{errorMovies}</p>}      
         </section>
       </main>
     </div>
