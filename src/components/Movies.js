@@ -1,8 +1,8 @@
-import notImg from '../image/notImg.png'
+
 
 const ListMovies=({movies})=>{
     return(
-        <>
+        <div className='containerMovies'>
         {
             movies.map(movie=>{
             return(
@@ -14,12 +14,7 @@ const ListMovies=({movies})=>{
             )
             })
         }
-        </>
-    )
-}
-const NotMovies =()=>{
-    return(
-        <h3>Not movies</h3>
+        </div>
     )
 }
 
@@ -29,35 +24,17 @@ const NotSearchMovies =()=>{
     )
 }
 
-export const Movies =({allMovies, searchMovies})=>{
-    let movies = allMovies.results
-    let moviesFilter = searchMovies
-    const mappedMovies = movies?.map(movie=>(
-        {
-        id: movie.id,
-        title: movie.title,
-        year: movie.release_date,
-        poster: `https://image.tmdb.org/t/p/w300/${movie.poster_path}` || notImg,
-        description: movie.overview
-    }
-    ))
+export const Movies =({movies})=>{
+    
+    
     return(
         <>
         {
-            moviesFilter.length > 0
-            ? <div>
-                <h2>Results of your search</h2>
-                <ListMovies movies={moviesFilter}/>
+            movies?.length > 0
+            ? <div className='movies'>
+                <ListMovies movies={movies}/>
             </div>
             : <NotSearchMovies/>
-        }
-        {
-            movies.length > 0
-            ? <div>
-                <h2>Best Movies</h2>
-                <ListMovies movies={mappedMovies}/>
-            </div>
-            : <NotMovies/>
         }
         </>
     )
