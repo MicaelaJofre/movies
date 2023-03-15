@@ -1,42 +1,53 @@
-import notImg from '../image/notImg.png'
-import { useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
+import { getSearchMovies } from '../services/movies'
+import { getBestAllMovies } from '../services/movies'
 
-const API_KEY = '6c0fafb5306d990365d2ccfd48b3550c'
 
-export const useMovies =({search})=>{
+
+export const useMovies =({search, sort})=>{
     const [allMovies, setAllMovies] = useState([])
     const [searchMovies, setSearchMovies] = useState([])
     const [errorMovies, setErrorMovies] = useState('')
+    const [loading, setLoading] = useState(false)
+    const previousSearch = useRef(search)
     
-    const movies = search ? searchMovies.results :  allMovies.results
-    const mappedMovies = movies?.map(movie=>(
-        {
-        id: movie.id,
-        title: movie.title,
-        year: movie.release_date,
-        poster: `https://image.tmdb.org/t/p/w300/${movie.poster_path}` || notImg,
-        description: movie.overview
-    }
-    ))
+    const movies = search ? searchMovies :  allMovies
 
-    const getMovies = async()=>{
-        if(search) {
-            const result = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${search}`)
-            const movies = await result.json()
-            setSearchMovies(movies)
-        } else {
-            setErrorMovies('No results for your search')
+    const getMovies = useCallback(async({search})=>{
+            if(search === previousSearch.current)return
+            try {
+                setLoading(true)
+                setErrorMovies(null)
+                previousSearch.current = search
+                const newMovies = await getSearchMovies({search})
+                setSearchMovies(newMovies)
+            } catch (error) {
+                setErrorMovies(error.message)
+            }finally{
+                setLoading(false)
+            }
+        },[])
+    
+
+    const bestAllMovies = async() =>{
+        try {
+            setLoading(true)
+            setErrorMovies(null)
+            const bestMovies = await getBestAllMovies()
+            setAllMovies(bestMovies)
+        } catch (error) {
+            setErrorMovies(error.message)
+        }finally{
+            setLoading(false)
         }
     }
 
-    const bestAllMovies = async() =>{
-        console.log('hola');
-        const result = await fetch(`https://api.themoviedb.org/3/movie/top_rated?&api_key=${API_KEY}`)
-        const movies = await result.json()
-        console.log(movies)
-        setAllMovies(movies)
-    }
+    const sortMovies = useMemo(() =>
+    sort
+    ? [...movies].sort((a,b)=> a.title.localeCompare(b.title))
+    : movies 
+    , [sort, movies])
 
-    return{ movies : mappedMovies, getMovies, errorMovies, bestAllMovies}
+    return{ movies: sortMovies, getMovies, bestAllMovies, loading, errorMovies}
     
 }
