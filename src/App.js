@@ -1,12 +1,21 @@
-import { useEffect, useState } from 'react'
+import debounce from 'just-debounce-it'
+import { useCallback, useEffect, useState } from 'react'
 import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 
 const App = () => {
-  const [sort, setSort] = useState(null)
+  const [sort, setSort] = useState(false)
   const {search, setSearch, error} = useSearch()
   const {movies, getMovies, bestAllMovies, loading, errorMovies} = useMovies({search, sort})
+
+  const debouncedGetMovies = useCallback(
+      debounce(search=>{
+        getMovies({search})
+      }, 300)
+    ,[getMovies],
+  )
+  
 
   useEffect(() => {
     bestMovies()
@@ -24,8 +33,9 @@ const App = () => {
 
   const handleChange =(e)=>{
     const newSearch = e.target.value
+    if(newSearch.startsWith(' '))return
     setSearch(newSearch)
-    getMovies({search: newSearch})
+    debouncedGetMovies(newSearch)    
   }
 
   const handleSort =()=>{
