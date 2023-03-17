@@ -6,7 +6,7 @@ import { useSearch } from './hooks/useSearch'
 
 const App = () => {
   const [sort, setSort] = useState(false)
-  const {search, setSearch, error} = useSearch()
+  const {search, setSearch} = useSearch()
   const {movies, getMovies, bestAllMovies, loading, errorMovies} = useMovies({search, sort})
 
   const debouncedGetMovies = useCallback(
@@ -43,15 +43,14 @@ const App = () => {
   }
 
   return (
-    <div className='container'>
-      <header className='headerApp'>
-        <h1>Movies</h1>
-        <form onSubmit={handleSubmit}>
-          <input name='query' placeholder='Matrix...' value={search} onChange={handleChange}/>
+    <div className='w-full h-full min-h-[100vh] bg-black text-white font-Poppins'>
+      <header className='w-full h-96 pt-5 flex justify-around'>
+        <h1 className="font-bold text-3xl">Movies</h1>
+        <form className='flex gap-4 h-10 items-center' onSubmit={handleSubmit}>
+          <input className='rounded-lg px-3 py-1 bg-[#222] placeholder-opacity-20 placeholder-white outline-none' name='query' placeholder='Matrix...' value={search} onChange={handleChange}/>
           <input name='sort' type='checkbox' checked={sort} onChange={handleSort}/>
-          <button type='submit'>Search</button>
+          <button className='border-[1px] border-red px-2 py-1 rounded-lg text-red uppercase text-sm font-medium' type='submit'>Search</button>
         </form>
-        {error && <p>{error}</p>}
       </header>
       <main>
         <section>
