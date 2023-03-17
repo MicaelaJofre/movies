@@ -32,7 +32,6 @@ export const getBestAllMovies = async() =>{
         const result = await fetch(`https://api.themoviedb.org/3/movie/top_rated?&api_key=${API_KEY}`)
         const json = await result.json()
         const movies = json.results
-        console.log(movies);
         return movies?.map(movie=>(
             {
                 id: movie.id,
