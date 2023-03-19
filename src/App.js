@@ -4,10 +4,9 @@ import { Movies } from './components/Movies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 
-import img from '../src/image/notImg.png'
 
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay } from "swiper"
+import { Autoplay } from 'swiper'
 
 // Import Swiper styles
 import "swiper/css"
@@ -65,22 +64,24 @@ const App = () => {
 
   return (
     <div className='w-full h-full min-h-[100vh] bg-black text-white font-Poppins'>
-      <header className='w-full h-96 pt-5 relative'>
-        <div className='absolute opacity-20 h-96'> 
+      <header className='w-full h-96 relative'>
+        <div className='absolute w-full l-0 opacity-30 pt-24'> 
           <Swiper 
           navigation={false} 
           modules={{Autoplay}} 
+          slidesPerView={8}
+          spaceBetween={10}
+          centeredSlides={false}
           autoplay={{
-            delay:300,
-            disableOnInteraction:false
+            delay: 2500
           }}
-          className="mySwiper">
+          className="overflow-visible">
             {
               listPopularMovies?
               listPopularMovies.map(list =>{
                 return (
                   <SwiperSlide key={list.id} className='flex justify-center'>
-                    <img className='h-96 object-contain ' alt='img' src={list.poster}/>
+                    <img className='object-contain ' alt='img' src={list.poster}/>
                   </SwiperSlide>
                 )
               })
@@ -88,9 +89,9 @@ const App = () => {
             :null}
           </Swiper>
         </div>
-        <div className='z-20 flex justify-around'>
+        <div className='pt-5 flex justify-around'>
           <h1 className="font-bold text-3xl">Movies</h1>
-          <form className='flex gap-4 h-10 items-center' onSubmit={handleSubmit}>
+          <form className='flex gap-4 h-10 z-20 items-center' onSubmit={handleSubmit}>
             <input className='rounded-lg px-3 py-1 bg-[#222] placeholder-opacity-20 placeholder-white outline-none' name='query' placeholder='Matrix...' value={search} onChange={handleChange}/>
             <input name='sort' type='checkbox' checked={sort} onChange={handleSort}/>
             <button className='border-[1px] border-red px-2 py-1 rounded-lg text-red uppercase text-sm font-medium' type='submit'>Search</button>

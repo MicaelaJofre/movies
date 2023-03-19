@@ -7,7 +7,7 @@ const ListMovies=({movies})=>{
             movies.map(movie=>{
             return(
                 <div className="flex flex-col gap-2 justify-between relative" key={movie.id}>
-                    <h3 className="pl-2 text-base font-semibold w-60 whitespace-nowrap overflow-ellipsis overflow-hidden">{movie.title}</h3>
+                    <h3 className="pl-2 opacity-60 text-[12px] font-semibold w-60 whitespace-nowrap overflow-ellipsis overflow-hidden">{movie.title}</h3>
                     <img className="w-full h-[370px] object-cover rounded-lg" src={movie.poster} alt= {movie.description}/>
                 </div>
             )
