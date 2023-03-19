@@ -45,3 +45,19 @@ export const getBestAllMovies = async() =>{
         throw new Error('Not best movies') 
     }
 }
+
+export const popularMovies = async()=>{
+    try {
+        const result = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+        const json = await result.json()
+        const movies = json.results
+        return movies?.map(movie=>(
+            {
+                id: movie.id,
+                poster: `https://image.tmdb.org/t/p/w300/${movie.poster_path}`,
+            }
+        ))
+    } catch (error) {
+        throw new Error('Not best movies') 
+    }
+}
