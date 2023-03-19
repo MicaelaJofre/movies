@@ -48,7 +48,7 @@ export const getBestAllMovies = async() =>{
 
 export const popularMovies = async()=>{
     try {
-        const result = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+        const result = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`)
         const json = await result.json()
         const movies = json.results
         return movies?.map(movie=>(
