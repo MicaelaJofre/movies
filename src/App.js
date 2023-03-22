@@ -1,34 +1,17 @@
 import debounce from 'just-debounce-it'
 import { useCallback, useEffect, useState } from 'react'
 import { Movies } from './components/Movies'
+import SliderPopularMovies from './components/SliderPopularMovies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 
 
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay } from 'swiper'
-
-// Import Swiper styles
-import "swiper/css"
-import "swiper/css/navigation"
-import { popularMovies } from './services/movies'
 
 const App = () => {
   const [sort, setSort] = useState(false)
   const {search, setSearch} = useSearch()
   const {movies, getMovies, bestAllMovies, loading, errorMovies} = useMovies({search, sort})
-  const [listPopularMovies, setListPopularMovies] = useState([])
-
-  const getPopularMovies = async()=>{
-    const list = await popularMovies()
-    setListPopularMovies(list)
-  }
-
-  useEffect(() => {
-    getPopularMovies()
-  }, [])
   
-
   const debouncedGetMovies = useCallback(
       debounce(search=>{
         getMovies({search})
@@ -65,30 +48,7 @@ const App = () => {
   return (
     <div className='w-full h-full min-h-[100vh] bg-black text-white font-Poppins'>
       <header className='w-full h-96 relative'>
-        <div className='absolute w-full l-0 opacity-30 pt-24'> 
-          <Swiper 
-          navigation={false} 
-          modules={{Autoplay}} 
-          slidesPerView={8}
-          spaceBetween={10}
-          centeredSlides={false}
-          autoplay={{
-            delay: 2500
-          }}
-          className="overflow-visible">
-            {
-              listPopularMovies?
-              listPopularMovies.map(list =>{
-                return (
-                  <SwiperSlide key={list.id} className='flex justify-center'>
-                    <img className='object-contain ' alt='img' src={list.poster}/>
-                  </SwiperSlide>
-                )
-              })
-              
-            :null}
-          </Swiper>
-        </div>
+        <SliderPopularMovies/>
         <div className='pt-5 flex justify-around'>
           <h1 className="font-bold text-3xl">Movies</h1>
           <form className='flex gap-4 h-10 z-20 items-center' onSubmit={handleSubmit}>
