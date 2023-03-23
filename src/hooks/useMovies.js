@@ -2,10 +2,8 @@ import { useCallback, useMemo, useRef, useState } from 'react'
 import { getSearchMovies } from '../services/movies'
 import { getBestAllMovies } from '../services/movies'
 
-
-
 export const useMovies =({search, sort})=>{
-    const [allMovies, setAllMovies] = useState([])
+  const [allMovies, setAllMovies] = useState([])
     const [searchMovies, setSearchMovies] = useState([])
     const [errorMovies, setErrorMovies] = useState('')
     const [loading, setLoading] = useState(false)
@@ -48,6 +46,6 @@ export const useMovies =({search, sort})=>{
     : movies 
     , [sort, movies])
 
-    return{ movies: sortMovies, getMovies, bestAllMovies, loading, errorMovies}
+    return{ movies: sortMovies, getMovies, bestAllMovies, loading, errorMovies}  
     
 }
