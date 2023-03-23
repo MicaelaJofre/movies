@@ -5,8 +5,6 @@ import SliderPopularMovies from './components/SliderPopularMovies'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 
-
-
 const App = () => {
   const [sort, setSort] = useState(false)
   const {search, setSearch} = useSearch()
@@ -49,19 +47,29 @@ const App = () => {
     <div className='w-full h-full min-h-[100vh] bg-black text-white font-Poppins'>
       <header className='w-full h-96 relative'>
         <SliderPopularMovies/>
-        <div className='pt-5 flex justify-around'>
-          <h1 className="font-bold text-3xl">Movies</h1>
+        <div className='pt-5 flex flex-col items-center gap-2 md:flex-row md:justify-around'>
+          <h1 className="font-bold text-[28px]">Movies</h1>
           <form className='flex gap-4 h-10 z-20 items-center' onSubmit={handleSubmit}>
-            <input className='rounded-lg px-3 py-1 bg-[#222] placeholder-opacity-20 placeholder-white outline-none' name='query' placeholder='Matrix...' value={search} onChange={handleChange}/>
+            <input className='rounded-lg px-3 py-1 bg-[#222] placeholder-opacity-20 placeholder-white outline-none' name='query' placeholder='Matrix, Train...' value={search} onChange={handleChange}/>
             <input name='sort' type='checkbox' checked={sort} onChange={handleSort}/>
-            <button className='border-[1px] border-red px-2 py-1 rounded-lg text-red uppercase text-sm font-medium' type='submit'>Search</button>
+            <button className='border-[2px] border-red px-2 py-1 rounded-lg text-red uppercase text-sm font-medium' type='submit'>Search</button>
           </form>
         </div>  
       </header>
       <main>
         <section>
           {
-            loading ? <p>Cargando ...</p> : <Movies movies={movies}/>  
+            loading ? 
+            <div className="dot-spinner">
+              {
+                Array(8).fill(null).map((spinner, index)=>{
+                  return(
+                    <div key={index} className="dot-spinner__dot"></div>
+                  )
+                })
+              }
+            </div> 
+        : <Movies movies={movies}/>  
           }  
           {errorMovies && <p>{errorMovies}</p>}      
         </section>
