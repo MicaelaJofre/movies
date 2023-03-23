@@ -10,7 +10,6 @@ SwiperCore.use([Autoplay])
 
 const SliderPopularMovies =()=>{
   const {listPopularMovies} = useSliderMovies()
-  console.log(listPopularMovies)
 
     return(
         <div className='absolute w-full l-0 opacity-30 pt-24'> 
