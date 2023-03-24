@@ -45,9 +45,8 @@ const App = () => {
 
   return (
     <div className='w-full h-full min-h-[100vh] bg-black text-white font-Poppins'>
-      <header className='w-full h-96 relative'>
-        <SliderPopularMovies/>
-        <div className='pt-5 flex flex-col items-center gap-2 md:flex-row md:justify-around'>
+      <header className='w-full h-auto relative'>
+        <div className='pt-5 pb-10 flex flex-col items-center gap-2 md:flex-row md:justify-around'>
           <h1 className="font-bold text-[28px]">Movies</h1>
           <form className='flex gap-4 h-10 z-20 items-center' onSubmit={handleSubmit}>
             <input className='rounded-lg px-3 py-1 bg-[#222] placeholder-opacity-20 placeholder-white outline-none' name='query' placeholder='Matrix, Train...' value={search} onChange={handleChange}/>
@@ -55,6 +54,7 @@ const App = () => {
             <button className='border-[2px] border-red px-2 py-1 rounded-lg text-red uppercase text-sm font-medium' type='submit'>Search</button>
           </form>
         </div>  
+        <SliderPopularMovies/>
       </header>
       <main>
         <section>
