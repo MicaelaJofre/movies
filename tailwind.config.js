@@ -14,6 +14,15 @@ module.exports = {
       gridTemplateColumns: {
         'movies': 'repeat(auto-fill, minmax(200px, 1fr))',
       },
+      animation: {
+        scroll: 'scroll 80s linear infinite',
+      },
+      keyframes: {
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(calc(-180px * 16))' },
+        },
+      },
     },
   },
   plugins: [],
