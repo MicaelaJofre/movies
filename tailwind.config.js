@@ -12,7 +12,7 @@ module.exports = {
         'red': '#FF0000'
       },
       gridTemplateColumns: {
-        'movies': 'repeat(auto-fill, minmax(200px, 1fr))',
+        'movies': 'repeat(auto-fill, minmax(180px, 1fr))',
       },
       animation: {
         scroll: 'scroll 80s linear infinite',
@@ -26,8 +26,8 @@ module.exports = {
       rotate:{
         'slider':{transform:'rotateZ(180deg)'}
       },
-      backgroundImage: {
-        'check-gradient': 'linear-gradient(to bottom, #b3b3b3, #e6e6e6)'
+      screens: {  
+        'sm':'430px',
       },
     },
   },
