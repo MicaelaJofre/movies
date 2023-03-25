@@ -20,8 +20,14 @@ module.exports = {
       keyframes: {
         scroll: {
           '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(calc(-180px * 16))' },
+          '100%': { transform: 'translateX(calc(-180px * 10))' },
         },
+      },
+      rotate:{
+        'slider':{transform:'rotateZ(180deg)'}
+      },
+      backgroundImage: {
+        'check-gradient': 'linear-gradient(to bottom, #b3b3b3, #e6e6e6)'
       },
     },
   },
