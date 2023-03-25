@@ -47,18 +47,20 @@ const App = () => {
   return (
     <div className='w-full h-full min-h-[100vh] bg-black text-white font-Poppins'>
       <header className='w-full h-auto relative'>
-        <div className='pt-5 pb-10 flex flex-col items-center gap-2 md:flex-row md:justify-around'>
+        <div className='pt-5 pb-14 flex flex-col items-center justify-center gap-6 md:flex-row md:justify-around md:gap-2'>
           <div className='flex gap-2'>
           <IconMovie/>
           <h1 className="font-bold text-[28px]">Movies</h1>
           </div>
-          <form className='flex gap-4 h-10 z-20 items-center' onSubmit={handleSubmit}>
-            <input className='rounded-lg px-3 py-1 bg-[#222] placeholder-opacity-20 placeholder-white outline-none' name='query' placeholder='Matrix, Train...' value={search} onChange={handleChange}/>
-            <div className='select-none relative w-12 h-6 m-5'>
-              <input name='sort' type='checkbox' id="check-apple" checked={sort} onChange={handleSort}/>
-              <label for="check-apple" className='absolute top-0 left-0 w-12 h-6 rounded-[50%] cursor-pointer transition-all'></label>
+          <form className='flex flex-col gap-4 h-30 z-20 items-center sm:flex-row' onSubmit={handleSubmit}>
+            <input className='rounded-lg px-3 py-1 bg-[#222] placeholder-opacity-20 placeholder-white placeholder:text-sm outline-none' name='query' placeholder='Matrix, Train ...' value={search} onChange={handleChange}/>
+            <div className='flex items-center gap-4 lg:flex-none'>
+            <div className='checkbox-apple'>
+              <input name='sort' type='checkbox' id="check-apple" className='yep' checked={sort} onChange={handleSort}/>
+              <label htmlFor="check-apple"></label>
             </div>            
             <button className='border-[2px] border-red px-2 py-1 rounded-lg text-stone-300 uppercase text-sm font-medium' type='submit'>Search</button>
+            </div>
           </form>
         </div>  
         <SliderPopularMovies/>
