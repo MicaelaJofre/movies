@@ -18,7 +18,7 @@ const ListMovies=({movies})=>{
 
 const NotSearchMovies =()=>{
   return(
-    <div className="w-full flex flex-col justify-center items-center text-red">
+    <div className="w-full flex flex-col justify-center items-center text-red pt-10">
       <h3 className="text-ms">No results for your search</h3>
       <p className="text-xs opacity-60">Try trying a different movie title</p>  
     </div>
