@@ -5,7 +5,8 @@ const SliderPopularMovies =()=>{
   const {listPopularMovies} = useSliderMovies()
 
   return(
-    <section className="h-[250px] m-auto overflow-hidden relative w-full">
+    <section className="h-[300px] m-auto overflow-hidden relative w-full">
+      <hr className="border-red mb-6"/>
       <div className="flex w-[calc(180px*20)] gap-4 opacity-40 animate-scroll items-center">
         {
           listPopularMovies &&
@@ -21,6 +22,7 @@ const SliderPopularMovies =()=>{
               })
             } 
       </div>
+      <hr className="border-red p-1 mt-6"/>
     </section>
   )
 }
