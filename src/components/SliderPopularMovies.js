@@ -12,7 +12,10 @@ const SliderPopularMovies =()=>{
           listPopularMovies.map(list =>{
             return (
                 <div>
-                  <img key={list.id} className='object-cover h-full w-[180px]' alt={`url poster: ${list.poster}`} src={list.poster}/>
+                  <img 
+                  key={list.id} className='object-cover h-full w-[180px]' 
+                  alt={`url poster: ${list.poster}`} src={list.poster}
+                  />
                 </div>
                 )
               })
